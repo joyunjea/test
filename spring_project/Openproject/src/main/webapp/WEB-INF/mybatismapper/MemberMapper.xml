@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/src/main/webapp/WEB-INF/mybatismapper/MemberMapper.xml">
+
+	<select id="selectByIdPw" 
+			resultType="com.bitcamp.op.member.domain.Member">
+		select * from member where userid=#{arg0} and password=#{arg1}
+	</select>
+	
+	<!-- int => 별칭 => Integer  -->
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<select id="selectList"
+			parameterType="com.bitcamp.op.member.domain.SearchParams"
+			resultType="com.bitcamp.op.member.domain.Member">
+	select * from member order by idx desc limit #{index},#{count}
+	</select>
+	
+	<insert id="insertMember"
+			parameterType="com.bitcamp.op.member.domain.MemberRegRequest"
+			useGeneratedKeys="true"
+			keyProperty="idx">
+	
+	INSERT INTO member (userid, password, username, photo)
+ 	 VALUES (#{userid},#{pw},#{username},#{fileName})
+	
+	</insert>
+	
+	<!-- 파라미터가 하나이고 기본형 또는 문자열일때 -> parameterType 생략  -->
+	<select id="selectByIdx"
+			resultType="com.bitcamp.op.member.domain.Member">
+	
+	select * from member where idx=#{idx}
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
